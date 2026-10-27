@@ -1,0 +1,6 @@
+{
+  "name": "ThermoPrint Studio",
+  "description": "Medical thermal receipt printer with Bluetooth and Wi-Fi connectivity, Floyd-Steinberg dithering, live preview, and theme options.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

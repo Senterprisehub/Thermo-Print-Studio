@@ -1,0 +1,33 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Thermal Printer Base Body -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M28,42h52c3.3,0 6,2.7 6,6v26c0,3.3 -2.7,6 -6,6H28c-3.3,0 -6,-2.7 -6,-6V48c0,-3.3 2.7,-6 6,-6z" />
+    <!-- Receipt Paper coming out of top slot -->
+    <path
+        android:fillColor="#E2E8F0"
+        android:pathData="M34,26h40c1.1,0 2,0.9 2,2v14H32V28c0,-1.1 0.9,-2 2,-2z" />
+    <!-- Paper receipt lines -->
+    <path
+        android:fillColor="#2C6E49"
+        android:pathData="M38,31h20v2H38z M38,35h32v2H38z M38,39h26v2H38z" />
+    <!-- Printer Paper Slot / Cut line -->
+    <path
+        android:fillColor="#1E2F3C"
+        android:pathData="M30,46h48v4H30z" />
+    <!-- Status LED & Feed Button -->
+    <path
+        android:fillColor="#4ADE80"
+        android:pathData="M32,68m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0" />
+    <path
+        android:fillColor="#CBD5E1"
+        android:pathData="M70,66h8c1.1,0 2,0.9 2,2s-0.9,2 -2,2h-8c-1.1,0 -2,-0.9 -2,-2s0.9,-2 2,-2z" />
+    <!-- Medical Cross Badge in Center of Printer -->
+    <path
+        android:fillColor="#2C6E49"
+        android:pathData="M51,56h6v16h-6z M46,61h16v6h-16z" />
+</vector>
