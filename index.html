@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="ThermoPrint Studio is a professional Android thermal printing solution for clinics, diagnostic centers, pharmacies, and mobile healthcare teams."
+    />
+    <title>ThermoPrint Studio | Professional Clinical Receipt Printing</title>
+    <style>
+      :root {
+        --primary: #0f6ea8;
+        --primary-dark: #0b5078;
+        --primary-soft: #eaf6ff;
+        --accent: #2bb6a4;
+        --accent-soft: #eafaf7;
+        --text: #14324a;
+        --muted: #5a7083;
+        --line: #dfeaf3;
+        --card: #ffffff;
+        --bg: #f4fbff;
+        --surface: #eef7fd;
+        --success: #1d9d6d;
+        --shadow: 0 16px 40px rgba(13, 89, 128, 0.12);
+      }
+
+      * { box-sizing: border-box; }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(180deg, #f8fcff 0%, #eef7ff 100%);
+        color: var(--text);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      .container {
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.8);
+        border-bottom: 1px solid rgba(13, 89, 128, 0.08);
+        z-index: 50;
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        min-height: 76px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        font-size: 1.1rem;
+        letter-spacing: -0.02em;
+      }
+
+      .brand-mark {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+        position: relative;
+        box-shadow: 0 12px 28px rgba(11, 80, 120, 0.25);
+      }
+
+      .brand-mark::before,
+      .brand-mark::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.9);
+      }
+
+      .brand-mark::before {
+        width: 18px;
+        height: 18px;
+        left: 12px;
+        top: 9px;
+      }
+
+      .brand-mark::after {
+        width: 12px;
+        height: 12px;
+        right: 10px;
+        bottom: 9px;
+        background: rgba(255, 255, 255, 0.7);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+        color: var(--muted);
+        font-size: 0.96rem;
+        flex-wrap: wrap;
+      }
+
+      .nav a:hover {
+        color: var(--primary);
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        border-radius: 999px;
+        border: none;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.2s ease;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary) 0%, #0d7cc3 100%);
+        color: white;
+        box-shadow: 0 18px 30px rgba(15, 110, 168, 0.25);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px);
+      }
+
+      .btn-secondary {
+        background: var(--card);
+        border: 1px solid var(--line);
+        color: var(--text);
+      }
+
+      .btn-large {
+        padding: 0.95rem 1.5rem;
+        min-height: 54px;
+        font-size: 1rem;
+      }
+
+      .hero {
+        padding: 72px 0 52px;
+      }
+
+      .hero-inner {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 42px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--primary-soft);
+        color: var(--primary-dark);
+        border: 1px solid rgba(15, 110, 168, 0.12);
+        border-radius: 999px;
+        padding: 0.5rem 0.9rem;
+        font-weight: 700;
+        font-size: 0.8rem;
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        margin: 0 0 18px;
+        font-size: clamp(2.5rem, 4vw, 4.5rem);
+        line-height: 1.02;
+        letter-spacing: -0.06em;
+      }
+
+      .lead {
+        margin: 0 0 28px;
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: var(--muted);
+        max-width: 620px;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-bottom: 26px;
+      }
+
+      .trust-row {
+        display: flex;
+        flex-wrap: wrap;
+        font-size: 0.92rem;
+        color: var(--muted);
+        gap: 18px 22px;
+      }
+
+      .trust-row span {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .check {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: inline-block;
+        background: linear-gradient(135deg, var(--success), #81d0b1);
+        position: relative;
+      }
+
+      .check::after {
+        content: "";
+        position: absolute;
+        width: 8px;
+        height: 4px;
+        border-left: 2px solid white;
+        border-bottom: 2px solid white;
+        transform: rotate(-45deg);
+        top: 5px;
+        left: 4px;
+      }
+
+      .dashboard {
+        position: relative;
+        background: linear-gradient(180deg, #ffffff 0%, #edf9ff 100%);
+        border: 1px solid rgba(17, 95, 136, 0.1);
+        border-radius: 30px;
+        padding: 24px;
+        box-shadow: var(--shadow);
+      }
+
+      .screen-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+
+      .window-dots {
+        display: flex;
+        gap: 8px;
+      }
+
+      .window-dots span {
+        width: 11px;
+        height: 11px;
+        display: inline-block;
+        border-radius: 50%;
+      }
+
+      .window-dots span:nth-child(1) { background: #ffb868; }
+      .window-dots span:nth-child(2) { background: #7fd0bf; }
+      .window-dots span:nth-child(3) { background: #c8d2e0; }
+
+      .pill {
+        background: var(--accent-soft);
+        color: var(--success);
+        border-radius: 999px;
+        padding: 0.45rem 0.8rem;
+        font-weight: 700;
+        font-size: 0.75rem;
+      }
+
+      .receipt-card {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 18px;
+        background: #f5fbff;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 18px;
+      }
+
+      .receipt {
+        background: white;
+        border-radius: 18px;
+        border: 1px solid rgba(20, 50, 74, 0.08);
+        padding: 18px 16px;
+      }
+
+      .receipt-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      .receipt-header strong {
+        font-size: 1.1rem;
+      }
+
+      .mini-tag {
+        background: #effaf4;
+        color: var(--success);
+        border-radius: 999px;
+        padding: 0.26rem 0.6rem;
+        font-size: 0.7rem;
+        font-weight: 700;
+      }
+
+      .receipt p {
+        margin: 0 0 10px;
+        color: var(--muted);
+        font-size: 0.8rem;
+        line-height: 1.5;
+      }
+
+      .data-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .data-item {
+        background: #f8fbff;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 10px 12px;
+      }
+
+      .data-item span {
+        display: block;
+        font-size: 0.72rem;
+        color: var(--muted);
+        margin-bottom: 4px;
+      }
+
+      .data-item strong {
+        font-size: 0.88rem;
+      }
+
+      .status-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .status-card {
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 14px;
+      }
+
+      .status-card h4 {
+        margin: 0 0 10px;
+        font-size: 0.86rem;
+        color: var(--muted);
+      }
+
+      .device-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .device {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 9px 10px;
+      }
+
+      .device strong {
+        font-size: 0.82rem;
+      }
+
+      .signal {
+        display: inline-flex;
+        gap: 3px;
+        align-items: end;
+      }
+
+      .signal span {
+        width: 4px;
+        border-radius: 999px;
+        background: linear-gradient(180deg, #5fcfaf, #1eaa77);
+        display: block;
+      }
+
+      .signal span:nth-child(1) { height: 7px; }
+      .signal span:nth-child(2) { height: 10px; }
+      .signal span:nth-child(3) { height: 13px; }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 26px;
+      }
+
+      .stat {
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 20px 18px;
+        text-align: center;
+        box-shadow: 0 10px 18px rgba(15, 110, 168, 0.04);
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 1.7rem;
+        letter-spacing: -0.05em;
+        margin-bottom: 8px;
+      }
+
+      .stat span {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      section {
+        padding: 82px 0;
+      }
+
+      .section-header {
+        margin: 0 auto 32px;
+        max-width: 760px;
+        text-align: center;
+      }
+
+      .section-header .eyebrow {
+        margin-bottom: 16px;
+      }
+
+      .section-header h2 {
+        font-size: clamp(2rem, 3vw, 3rem);
+        margin: 0 0 12px;
+        letter-spacing: -0.05em;
+      }
+
+      .section-header p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .feature-card {
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: 22px;
+        box-shadow: 0 14px 28px rgba(15, 110, 168, 0.04);
+      }
+
+      .feature-icon {
+        width: 54px;
+        height: 54px;
+        display: grid;
+        place-items: center;
+        border-radius: 16px;
+        background: linear-gradient(135deg, var(--primary-soft), #dff5ff);
+        font-size: 1.5rem;
+        margin-bottom: 18px;
+      }
+
+      .feature-card h3 {
+        margin: 0 0 10px;
+        font-size: 1.2rem;
+      }
+
+      .feature-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .info-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 24px;
+        align-items: stretch;
+      }
+
+      .info-panel,
+      .release-panel {
+        background: white;
+        border-radius: 28px;
+        border: 1px solid var(--line);
+        box-shadow: 0 16px 36px rgba(15, 110, 168, 0.04);
+      }
+
+      .info-panel {
+        padding: 28px;
+      }
+
+      .info-panel h3 {
+        margin-top: 0;
+        margin-bottom: 14px;
+        font-size: clamp(1.5rem, 2vw, 2rem);
+      }
+
+      .info-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 14px;
+      }
+
+      .info-list li {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .bullet {
+        width: 25px;
+        height: 25px;
+        border-radius: 8px;
+        background: linear-gradient(135deg, var(--primary), #4aa3d8);
+        display: inline-grid;
+        place-items: center;
+        color: white;
+        font-weight: 700;
+        font-size: 0.8rem;
+        flex-shrink: 0;
+      }
+
+      .release-panel {
+        padding: 26px;
+        background: linear-gradient(180deg, #fafcff 0%, #f3faff 100%);
+      }
+
+      .release-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #eefaf7;
+        color: var(--success);
+        border-radius: 999px;
+        padding: 0.45rem 0.75rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        margin-bottom: 18px;
+      }
+
+      .release-panel h3 {
+        margin: 0 0 8px;
+        font-size: clamp(1.8rem, 3vw, 2.6rem);
+        letter-spacing: -0.05em;
+      }
+
+      .release-meta {
+        color: var(--muted);
+        margin-bottom: 20px;
+        line-height: 1.7;
+      }
+
+      .download-box {
+        padding: 18px 18px 16px;
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+      }
+
+      .download-box .label {
+        display: block;
+        font-size: 0.75rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 10px;
+      }
+
+      .download-box a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        font-weight: 800;
+        color: var(--text);
+      }
+
+      .download-box .file-name {
+        font-size: 1.05rem;
+      }
+
+      .arrow {
+        width: 36px;
+        height: 36px;
+        display: inline-grid;
+        place-items: center;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), #4aa3d8);
+        color: white;
+        font-size: 1.2rem;
+      }
+
+      .compatibility {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .compatibility-card {
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 22px 18px;
+        text-align: center;
+      }
+
+      .compatibility-card .icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        margin: 0 auto 14px;
+        background: linear-gradient(135deg, #eef8ff, #dff4ff);
+        display: grid;
+        place-items: center;
+        font-size: 1.5rem;
+      }
+
+      .compatibility-card h4 {
+        margin: 0 0 8px;
+      }
+
+      .compatibility-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+        font-size: 0.95rem;
+      }
+
+      .faq {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .faq-item {
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 22px 20px;
+      }
+
+      .faq-item h4 {
+        margin: 0 0 8px;
+        font-size: 1.08rem;
+      }
+
+      .faq-item p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      footer {
+        padding: 26px 0 40px;
+      }
+
+      .footer-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        border-top: 1px solid var(--line);
+        padding-top: 22px;
+        color: var(--muted);
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 980px) {
+        .hero-inner,
+        .info-grid,
+        .feature-grid,
+        .compatibility,
+        .faq {
+          grid-template-columns: 1fr;
+        }
+
+        .stats {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 700px) {
+        .topbar-inner {
+          flex-wrap: wrap;
+          padding: 12px 0;
+        }
+
+        .nav {
+          gap: 12px 18px;
+          font-size: 0.85rem;
+        }
+
+        .stats {
+          grid-template-columns: 1fr;
+        }
+
+        .receipt-card {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          padding-top: 42px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <a href="#top" class="brand" aria-label="ThermoPrint Studio home">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>ThermoPrint Studio</span>
+        </a>
+
+        <nav class="nav" aria-label="Main navigation">
+          <a href="#features">Features</a>
+          <a href="#workflow">Workflow</a>
+          <a href="#compatibility">Compatibility</a>
+          <a href="#download">Download</a>
+        </nav>
+
+        <a class="btn btn-primary btn-large" href="#download">Download App</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="container hero-inner">
+          <div>
+            <div class="eyebrow">Professional medical printing workflow</div>
+            <h1>Fast, accurate receipt printing for clinics and point-of-care teams.</h1>
+            <p class="lead">
+              ThermoPrint Studio turns a mobile device into a reliable thermal printing workstation for patient slips,
+              diagnostic results, prescription receipts, and clinical documentation—without the complexity.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary btn-large" href="#download">Get latest version</a>
+              <a class="btn btn-secondary btn-large" href="#features">Explore features</a>
+            </div>
+
+            <div class="trust-row" aria-label="Key benefits">
+              <span><i class="check" aria-hidden="true"></i> Bluetooth + Wi‑Fi printing</span>
+              <span><i class="check" aria-hidden="true"></i> PDF export ready</span>
+              <span><i class="check" aria-hidden="true"></i> No cloud required</span>
+            </div>
+          </div>
+
+          <div class="dashboard" aria-label="Product preview">
+            <div class="screen-top">
+              <div class="window-dots" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <span class="pill">Live preview</span>
+            </div>
+
+            <div class="receipt-card">
+              <div class="receipt">
+                <div class="receipt-header">
+                  <strong>Clinic Receipt</strong>
+                  <span class="mini-tag">Printed</span>
+                </div>
+
+                <p>Northside Diagnostics Center<br />123 Medical Avenue, Suite 8</p>
+
+                <div class="data-grid">
+                  <div class="data-item">
+                    <span>Patient</span>
+                    <strong>J. Collins</strong>
+                  </div>
+                  <div class="data-item">
+                    <span>Visit</span>
+                    <strong>09:30 AM</strong>
+                  </div>
+                  <div class="data-item">
+                    <span>RBS</span>
+                    <strong>118 mg/dL</strong>
+                  </div>
+                  <div class="data-item">
+                    <span>BP</span>
+                    <strong>118/76</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div class="status-panel">
+                <div class="status-card">
+                  <h4>Connected devices</h4>
+                  <div class="device-list">
+                    <div class="device">
+                      <strong>Thermal Pro 58</strong>
+                      <span class="signal" aria-label="Connected"><span></span><span></span><span></span></span>
+                    </div>
+                    <div class="device">
+                      <strong>Clinic BT Mini</strong>
+                      <span class="signal" aria-label="Connected"><span></span><span></span><span></span></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="status-card">
+                  <h4>Printing mode</h4>
+                  <div class="data-item" style="margin: 0; background: #f9feff;">
+                    <span>Protocol</span>
+                    <strong>ESC/POS · 58mm</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container stats" aria-label="App stats">
+          <div class="stat">
+            <strong>58mm</strong>
+            <span>Thermal paper support</span>
+          </div>
+          <div class="stat">
+            <strong>3</strong>
+            <span>Core connection types</span>
+          </div>
+          <div class="stat">
+            <strong>24/7</strong>
+            <span>Clinical workflow ready</span>
+          </div>
+          <div class="stat">
+            <strong>PDF</strong>
+            <span>Export & print support</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="features">
+        <div class="container">
+          <div class="section-header">
+            <div class="eyebrow">Built for real healthcare work</div>
+            <h2>Everything a healthcare printer needs</h2>
+            <p>
+              From patient receipts to diagnostic summaries, ThermoPrint Studio gives care teams a streamlined way to print clean, reliable outputs from a mobile device.
+            </p>
+          </div>
+
+          <div class="feature-grid">
+            <article class="feature-card">
+              <div class="feature-icon" aria-hidden="true">📡</div>
+              <h3>Universal connectivity</h3>
+              <p>Connect to Bluetooth Classic, BLE printers, or Wi‑Fi thermal terminals using the right protocol for your clinic setup.</p>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-icon" aria-hidden="true">🩺</div>
+              <h3>Clinical-ready records</h3>
+              <p>Generate patient slips with RBS, HbA1c, blood pressure, timelines, and custom clinic information in a polished format.</p>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-icon" aria-hidden="true">🖼️</div>
+              <h3>Logo and preview tools</h3>
+              <p>Upload clinic branding, apply monochrome dithering, and preview final print layout before sending to the printer.</p>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-icon" aria-hidden="true">🧾</div>
+              <h3>Print history & reprints</h3>
+              <p>Keep a local archive of recent jobs and quickly repeat previous receipts without re-entering information manually.</p>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-icon" aria-hidden="true">🔒</div>
+              <h3>Private and offline-friendly</h3>
+              <p>Operate with local data and device-based printing workflows, helping maintain privacy and continuity in busy clinical environments.</p>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-icon" aria-hidden="true">📄</div>
+              <h3>PDF export</h3>
+              <p>Export or send a clean document through Android printing services when a thermal printer isn’t directly available.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="workflow">
+        <div class="container info-grid">
+          <div class="info-panel">
+            <div class="eyebrow">Why teams choose it</div>
+            <h3>Built for speed, clarity, and reliability.</h3>
+            <ul class="info-list">
+              <li>
+                <span class="bullet">✓</span>
+                <span>Streamline patient-facing documentation in diagnostics centers, pharmacies, and small clinical settings.</span>
+              </li>
+              <li>
+                <span class="bullet">✓</span>
+                <span>Use professional receipt layouts with custom branding, mobile-friendly formatting, and patient details tailored to care workflows.</span>
+              </li>
+              <li>
+                <span class="bullet">✓</span>
+                <span>Reduce friction with quick printer discovery, one-tap workflows, and clear local preview output before printing.</span>
+              </li>
+              <li>
+                <span class="bullet">✓</span>
+                <span>Support modern, practical healthcare operations with a dependable app that works across multiple printer technologies.</span>
+              </li>
+            </ul>
+          </div>
+
+          <aside class="release-panel" id="download">
+            <div class="release-chip">Latest release ready</div>
+            <h3 id="releaseVersion">Loading latest version…</h3>
+            <div class="release-meta" id="releaseSummary">
+              Fetching the most recent APK and release details from GitHub.
+            </div>
+
+            <div class="download-box">
+              <span class="label">Download</span>
+              <a id="downloadLink" href="https://github.com/Senterprisehub/Thermo-Print-Studio/releases" target="_blank" rel="noreferrer">
+                <span class="file-name" id="downloadFilename">ThermoPrint Studio APK</span>
+                <span class="arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="compatibility">
+        <div class="container">
+          <div class="section-header">
+            <div class="eyebrow">Compatibility</div>
+            <h2>Designed for modern clinical setups</h2>
+          </div>
+
+          <div class="compatibility">
+            <div class="compatibility-card">
+              <div class="icon" aria-hidden="true">📱</div>
+              <h4>Android devices</h4>
+              <p>Optimized for handsets and tablets used in patient-facing environments.</p>
+            </div>
+
+            <div class="compatibility-card">
+              <div class="icon" aria-hidden="true">🛰️</div>
+              <h4>Bluetooth & Wi‑Fi</h4>
+              <p>Works with paired devices, BLE peripherals, and networked thermal printers.</p>
+            </div>
+
+            <div class="compatibility-card">
+              <div class="icon" aria-hidden="true">🧠</div>
+              <h4>ESC/POS printers</h4>
+              <p>Compatible with common 58mm thermal printer standards used in healthcare settings.</p>
+            </div>
+
+            <div class="compatibility-card">
+              <div class="icon" aria-hidden="true">📨</div>
+              <h4>PDF & print output</h4>
+              <p>Export receipts or route documents through Android print services when needed.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <div class="section-header">
+            <div class="eyebrow">Common questions</div>
+            <h2>Everything you need to know</h2>
+          </div>
+
+          <div class="faq">
+            <div class="faq-item">
+              <h4>What kind of printers does it support?</h4>
+              <p>It supports Bluetooth Classic, Bluetooth Low Energy, and Wi‑Fi TCP/IP thermal printers designed for 58mm receipt output.</p>
+            </div>
+
+            <div class="faq-item">
+              <h4>Is this suitable for clinic or lab use?</h4>
+              <p>Yes. It’s designed specifically for healthcare documentation, patient slips, and practical point-of-care workflows.</p>
+            </div>
+
+            <div class="faq-item">
+              <h4>Does it require a cloud account?</h4>
+              <p>No. The app is built around a local, offline-friendly workflow with no account dependency required.</p>
+            </div>
+
+            <div class="faq-item">
+              <h4>Can I export records as PDF?</h4>
+              <p>Yes. The app supports PDF export and Android native print workflows for flexible clinical documentation.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-inner">
+        <div class="brand" aria-label="ThermoPrint Studio brand footer">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>ThermoPrint Studio</span>
+        </div>
+        <div>Professional thermal printing for healthcare and diagnostics.</div>
+      </div>
+    </footer>
+
+    <script>
+      const releaseURL = 'https://api.github.com/repos/Senterprisehub/Thermo-Print-Studio/releases/latest';
+      const releaseVersion = document.getElementById('releaseVersion');
+      const releaseSummary = document.getElementById('releaseSummary');
+      const downloadLink = document.getElementById('downloadLink');
+      const downloadFilename = document.getElementById('downloadFilename');
+
+      fetch(releaseURL, {
+        headers: {
+          Accept: 'application/vnd.github+json',
+          'User-Agent': 'Mozilla/5.0'
+        }
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Release lookup failed');
+          }
+          return response.json();
+        })
+        .then((release) => {
+          const versionText = release.tag_name || 'Latest version';
+          const asset = Array.isArray(release.assets) && release.assets.length
+            ? release.assets.find((item) => /apk|aab|zip/i.test(item.name)) || release.assets[0]
+            : null;
+
+          releaseVersion.textContent = versionText;
+
+          const publishedDate = release.published_at
+            ? new Date(release.published_at).toLocaleDateString(undefined, {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+              })
+            : 'Recently published';
+
+          releaseSummary.textContent = `Updated ${publishedDate}. Download the latest Android release for clinical and diagnostic printing workflows.`;
+
+          if (asset && asset.browser_download_url) {
+            downloadLink.href = asset.browser_download_url;
+            downloadFilename.textContent = asset.name || 'ThermoPrint Studio APK';
+          } else if (release.html_url) {
+            downloadLink.href = release.html_url;
+            downloadFilename.textContent = 'Open GitHub release';
+          }
+        })
+        .catch(() => {
+          releaseVersion.textContent = 'v1.0';
+          releaseSummary.textContent = 'The latest stable release is available on the GitHub releases page.';
+          downloadLink.href = 'https://github.com/Senterprisehub/Thermo-Print-Studio/releases';
+          downloadFilename.textContent = 'View GitHub releases';
+        });
+    </script>
+  </body>
+</html>
