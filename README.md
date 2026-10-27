@@ -1,99 +1,121 @@
-# Thermo-Print-Studio
-================================================================================
-                  THERMOPRINT STUDIO - FULL FUNCTIONAL DESCRIPTION
-         Professional Medical & Diagnostic Thermal Receipt Printing Suite
-================================================================================
+# Thermo Print Studio
 
-OVERVIEW
---------
-ThermoPrint Studio is an all-in-one, medical-grade thermal printing solution 
-engineered for clinics, diagnostic centers, pharmacies, point-of-care stations, 
-and mobile healthcare professionals. Built with a fast, modern interface, it 
-transforms your Android smartphone or tablet into a complete diagnostic slip 
-workstation—allowing you to generate, preview, and print crisp 58mm thermal 
-receipts over Bluetooth, Wi-Fi, or system PDF in seconds.
+Professional thermal receipt printing for clinics, diagnostics, pharmacies, and mobile healthcare workflows.
 
+Thermo Print Studio turns an Android device into a modern thermal printing workstation for patient slips, diagnostic reports, and professional point-of-care documentation. Connect to Bluetooth, BLE, Wi‑Fi, or standard Android print services and generate clean, readable 58mm receipts in seconds.
 
-KEY HIGHLIGHTS & CORE FEATURES
-------------------------------
+## Overview
 
-1. UNIVERSAL PRINTER CONNECTIVITY (BLUETOOTH, BLE & WI-FI)
-   • Bluetooth Classic (SPP): Effortlessly connect to standard paired POS and 
-     portable thermal printers with automatic RFCOMM socket fallback for 
-     maximum hardware compatibility.
-   • Bluetooth Low Energy (BLE): Built-in GATT service and characteristic 
-     auto-discovery supports modern low-energy portable thermal printers.
-   • Wi-Fi / LAN Network Printing (RAW TCP/IP): Print directly over your clinic 
-     network via Port 9100 (or custom ports) with high-speed socket streaming.
-   • System Print & PDF Export (Mopria / AirPrint): No thermal printer nearby? 
-     Generate high-resolution PDF slips or print to standard office printers 
-     using Android’s native Print Framework.
+Thermo Print Studio is designed for healthcare professionals who need a fast, reliable, and easy-to-use thermal printing solution. It helps clinics, diagnostic centers, pharmacies, and mobile healthcare teams print patient-friendly receipts, diagnostic summaries, and treatment records with professional formatting and minimal setup.
 
-2. SMART PRINTER SEARCH & LIVE CONNECTION DASHBOARD
-   • Instant Bluetooth Search & Filtering: Quickly filter paired or nearby 
-     Bluetooth printers by device name or MAC address, or trigger a live 
-     10-second proximity scan.
-   • Automated Wi-Fi Subnet Scanner: Automatically sweep your local Wi-Fi 
-     network to discover active thermal printers on Port 9100, or use 
-     one-tap Quick IP selection chips.
-   • Real-Time Active Printer Status Banner: Always know which printer is 
-     connected at a glance with live status indicators, connection protocol 
-     badges, MAC/IP address display, and one-tap disconnect controls.
-   • Built-in Diagnostic Console: View real-time ESC/POS transmission logs and 
-     run hardware self-test prints to verify printer alignment and speed.
+The app supports multiple printing methods, including:
 
-3. TAILORED FOR MEDICAL DIAGNOSTICS & POINT-OF-CARE
-   • Practice & Clinic Branding: Customize your clinic name, address, phone 
-     number, and registration header with automatic local persistence.
-   • Dedicated Vital & Lab Test Modules:
-     - Random Blood Glucose (RBS) in mg/dL
-     - Glycated Hemoglobin (HbA1c) in %
-     - Blood Pressure (Systolic / Diastolic) in mmHg
-   • Automatic Live Timestamping: Real-time date and clock synchronization 
-     ensures every patient slip carries an accurate diagnostic timestamp.
+- Bluetooth Classic (SPP)
+- Bluetooth Low Energy (BLE)
+- Wi‑Fi / LAN printing via TCP/IP
+- Android system print / PDF output
 
-4. STUDIO-GRADE LOGO DITHERING ENGINE
-   • Floyd-Steinberg 1-Bit Monochrome Dithering: Upload any clinic logo or 
-     emblem from your device gallery—or use the built-in medical caduceus 
-     preset—and watch it convert into a sharp, thermal-ready 1-bit raster 
-     graphic (ESC/POS GS v 0 standard).
-   • Side-by-Side Image Preview: Inspect both your original artwork and the 
-     dithered thermal output before printing a single millimeter of paper.
+Everything is designed to work with 58mm thermal paper and ESC/POS-compatible printers, making it a practical choice for real-world clinical and point-of-care environments.
 
-5. INTERACTIVE WYSIWYG 58MM LIVE RECEIPT PREVIEW
-   • What You See Is What You Print: Every keystroke updates a realistic 58mm 
-     (384-dot width) thermal paper preview complete with perforated锯tooth 
-     edges, monospace typography, and dithered header graphics.
-   • Adaptive Layout for Phones & Tablets: Enjoy a streamlined vertical 
-     workflow on smartphones or a side-by-side split workstation view on 
-     tablets and foldables.
+## Key Features
 
-6. COMPLETE PRINT HISTORY & ONE-TAP REPRINTING
-   • Local Receipt Archive: Automatically logs up to 50 recent print jobs 
-     locally on your device for complete privacy and offline reliability.
-   • Instant Reload & Reprint: Browse past patient slips in the History Sheet 
-     to reload values into the editor with a single tap, or manage and clear 
-     records anytime.
+### 1. Universal Printer Connectivity
 
-7. ERGONOMIC DARK & LIGHT THEMES
-   • Instant Theme Switching: Toggle seamlessly between a high-contrast Light 
-     Mode for bright clinical environments and a sleek Dark Mode that reduces 
-     eye strain during night shifts.
+- Connect to standard paired thermal printers via Bluetooth Classic
+- Support BLE-enabled portable printers using GATT services
+- Print over Wi‑Fi network using TCP/IP port 9100 or custom ports
+- Export PDF or print through Android native print services when a thermal printer is not available
 
+### 2. Smart Discovery and Connection Control
 
-TECHNICAL SPECIFICATIONS
-------------------------
-• Paper Width Standard : 58mm Thermal Paper (384 dots/line, 32 chars/line)
-• Command Protocol     : Standard ESC/POS (Initialize, Raster Bit-Image, Cut)
-• Supported Transports : Bluetooth Classic SPP, Bluetooth LE (GATT), 
-                         Wi-Fi TCP/IP (Port 9100), Android PrintManager / PDF
-• Offline Capability   : 100% Offline-First Operation (No cloud account required)
+- Search and filter nearby or paired printers quickly
+- Detect devices by name or MAC address
+- Scan local Wi‑Fi networks for compatible printers
+- View active printer status, protocol type, and network details
+- One-tap disconnect and diagnostic controls
 
+### 3. Medical and Diagnostic Workflow Support
 
-WHY CHOOSE THERMOPRINT STUDIO?
-------------------------------
-• Zero Setup Friction: Connect, preview, and print in under 10 seconds.
-• Hardware Agnostic: Works with virtually any ESC/POS-compatible 58mm printer.
-• Professional Patient Experience: Deliver clean, branded, easy-to-read 
-  diagnostic slips that build patient trust.
-================================================================================
+- Customize clinic branding, name, address, and contact details
+- Add patient and visit information with timestamps
+- Support common healthcare values such as:
+  - Random Blood Glucose (RBS)
+  - HbA1c
+  - Blood Pressure readings
+- Generate clean, readable patient slips that are suitable for clinical use
+
+### 4. Studio-Grade Logo Rendering
+
+- Upload custom clinic logos from the device gallery
+- Use a built-in medical symbol preset for faster setup
+- Convert images into monochrome thermal-ready output via dithering
+- Preview the final print layout before sending to the printer
+
+### 5. Live 58mm Receipt Preview
+
+- Real-time print preview that mirrors the final outcome
+- Optimized for phones, tablets, and foldable devices
+- Includes thermal paper framing, perforation styling, and compact layout
+- Ensures accurate formatting before printing
+
+### 6. Print History and Reprint Support
+
+- Keep a local archive of recent jobs
+- Reuse previous entries for quick reprints
+- Maintain clean records without cloud dependency
+- Works efficiently in offline or low-connectivity conditions
+
+### 7. Light and Dark Theme Support
+
+- Switch between light and dark interfaces depending on work environment
+- Designed for daytime clinical settings and low-light night shifts
+- Improves readability and comfort during long working sessions
+
+## Technical Specifications
+
+- Paper width: 58mm thermal paper
+- Resolution: 384 dots/line
+- Protocol: ESC/POS standard commands
+- Supported transports:
+  - Bluetooth Classic SPP
+  - Bluetooth LE (GATT)
+  - Wi‑Fi TCP/IP
+  - Android Print Framework / PDF
+- Operating model: Offline-first, no cloud account required
+
+## Why Choose Thermo Print Studio?
+
+- Zero-friction setup and fast connection workflow
+- Broad compatibility with ESC/POS thermal printers
+- Professional receipt quality for healthcare and diagnostic settings
+- Useful for busy clinics, pharmacies, labs, and mobile practitioners
+- Privacy-friendly local workflow with no dependency on external services
+
+## Typical Use Cases
+
+- Clinic billing and consultation receipts
+- Diagnostic center test result slips
+- Pharmacy prescription and invoice printing
+- Point-of-care monitoring stations
+- Mobile healthcare visits and field diagnostics
+
+## Installation
+
+1. Download the latest APK from the GitHub Releases page.
+2. Enable installation from unknown sources on your Android device if required.
+3. Open the APK and follow the installation prompts.
+4. Connect your thermal printer and start printing.
+
+Download latest release: https://github.com/Senterprisehub/Thermo-Print-Studio/releases
+
+## Project Status
+
+This project is built for practical clinical and operational use, with a focus on speed, trust, and reliability in printed patient-facing documentation.
+
+## License
+
+Please check the repository for the project license file if applicable.
+
+## Contact
+
+For support, questions, or business inquiries, please contact the repository owner or project maintainer through GitHub.
